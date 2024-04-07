@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chiffrement de César</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="text"][readonly] {
+            background-color: #eee;
+            color: #666;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chiffrement de César</h1>
+        <label for="message">Message à chiffrer :</label>
+        <input type="text" id="message" placeholder="Entrez votre message">
+        <label for="shift">Décalage :</label>
+        <input type="number" id="shift" min="0" placeholder="Décalage">
+        <button onclick="encrypt()">Chiffrer</button>
+        <label for="encryptedMessage">Message chiffré :</label>
+        <input type="text" id="encryptedMessage" readonly>
+    </div>
+
+    <div class="footer">
+        <p>Créé par Kilian PETUYA, élève de 3°2, Collège des Cordeliers, 2024</p>
+    </div>
+
+    <script>
+        // Fonction pour chiffrer un message avec un décalage donné
+        function encrypt() {
+            var message = document.getElementById("message").value;
+            var shift = parseInt(document.getElementById("shift").value);
+            var encryptedMessage = "";
+
+            for (var i = 0; i < message.length; i++) {
+                var charCode = message.charCodeAt(i);
+
+                // Chiffrer uniquement les lettres de l'alphabet
+                if (charCode >= 65 && charCode <= 90) {
+                    encryptedMessage += String.fromCharCode(((charCode - 65 + shift) % 26) + 65); // Pour les majuscules
+                } else if (charCode >= 97 && charCode <= 122) {
+                    encryptedMessage += String.fromCharCode(((charCode - 97 + shift) % 26) + 97); // Pour les minuscules
+                } else {
+                    encryptedMessage += message.charAt(i); // Conserver les caractères spéciaux
+                }
+            }
+
+            document.getElementById("encryptedMessage").value = encryptedMessage;
+        }
+    </script>
+</body>
+</html>
